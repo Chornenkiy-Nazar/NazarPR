@@ -1,4 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
-     
+    <link rel="stylesheet" href="PRC.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Management</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .input-group textarea {
+            resize: vertical;
+        }
+
+        .input-group button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .input-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .output {
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Real Estate Management</h2>
+        <button onclick="toggleRealtorForm()">Add Realtor</button>
+        <button onclick="toggleClientForm()">Add Client</button>
+        <div id="realEstateForm" class="input-group">
+            <h3>Real Estate</h3>
+            <label>Type: <input type="text" id="realEstateType"></label>
+            <label>Total Area: <input type="number" id="realEstateTotalArea"></label>
+            <label>Living Area: <input type="number" id="realEstateLivingArea"></label>
+            <label>Useful Area: <input type="number" id="realEstateUsefulArea"></label>
+            <label>Total Rooms: <input type="number" id="realEstateTotalRooms"></label>
+            <label>Living Rooms: <input type="number" id="realEstateLivingRooms"></label>
+            <label>Floor: <input type="number" id="realEstateFloor"></label>
+            <label>Total Floors: <input type="number" id="realEstateTotalFloors"></label>
+            <label>Street: <input type="text" id="realEstateStreet"></label>
+            <label>Building Number: <input type="number" id="realEstateBuildingNumber"></label>
+            <label>Apartment Number: <input type="number" id="realEstateApartmentNumber"></label>
+            <label>Sale Price: <input type="number" id="realEstateSalePrice"></label>
+            <label>Rent Price: <input type="number" id="realEstateRentPrice"></label>
+            <label>Description: <textarea id="realEstateDescription"></textarea></label>
+            <label>Status: <input type="text" id="realEstateStatus"></label>
+            <label>Owner Surname: <input type="text" id="realEstateOwnerSurname"></label>
+            <label>Owner Name: <input type="text" id="realEstateOwnerName"></label>
+            <label>Owner Patronymic: <input type="text" id="realEstateOwnerPatronymic"></label>
+            <label>Owner Contact Info: <input type="text" id="realEstateOwnerContactInfo"></label>
+            <button onclick="createRealEstate()">Create Real Estate</button>
+        </div>
+
+        <div id="clientForm" class="input-group">
+            <h3>Client</h3>
+            <label>Surname: <input type="text" id="clientSurname"></label>
+            <label>Name: <input type="text" id="clientName"></label>
+            <label>Patronymic: <input type="text" id="clientPatronymic"></label>
+            <label>Phone: <input type="text" id="clientPhone"></label>
+            <label>Email: <input type="email" id="clientEmail"></label>
+            <label>Address: <input type="text" id="clientAddress"></label>
+            <label>Needs: <textarea id="clientNeeds"></textarea></label>
+            <label>Cooperation History: <textarea id="clientHistory"></textarea></label>
+            <button onclick="createClient()">Create Client</button>
+        </div>
+
+        <div id="realtorForm" class="input-group">
+            <h3>Realtor</h3>
+            <label>Surname: <input type="text" id="realtorSurname"></label>
+            <label>Name: <input type="text" id="realtorName"></label>
+            <label>Patronymic: <input type="text" id="realtorPatronymic"></label>
+            <label>Phone: <input type="text" id="realtorPhone"></label>
+            <label>Email: <input type="email" id="realtorEmail"></label>
+            <label>Specialization: <input type="text" id="realtorSpecialization"></label>
+            <label>Experience (years): <input type="number" id="realtorExperience"></label>
+            <label>Number of Deals: <input type="number" id="realtorDealsCount"></label>
+            <label>Feedback: <textarea id="realtorFeedback"></textarea></label>
+            <button onclick="createRealtor()">Create Realtor</button>
+        </div>
+
+        <div id="output" class="output"></div>
+    </div>
+
+    <script>
+        src='JSFunktion.js'
+
+        let realEstate, client, realtor;
+
+        function createRealEstate() {
+            realEstate = new RealEstate(
+                document.getElementById('realEstateType').value,
+                parseFloat(document.getElementById('realEstateTotalArea').value),
+                parseFloat(document.getElementById('realEstateLivingArea').value),
+                parseFloat(document.getElementById('realEstateUsefulArea').value),
+                parseInt(document.getElementById('realEstateTotalRooms').value),
+                parseInt(document.getElementById('realEstateLivingRooms').value),
+                parseInt(document.getElementById('realEstateFloor').value),
+                parseInt(document.getElementById('realEstateTotalFloors').value),
+                document.getElementById('realEstateStreet').value,
+                parseInt(document.getElementById('realEstateBuildingNumber').value),
+                parseInt(document.getElementById('realEstateApartmentNumber').value),
+                parseFloat(document.getElementById('realEstateSalePrice').value),
+                parseFloat(document.getElementById('realEstateRentPrice').value),
+                document.getElementById('realEstateDescription').value,
+                document.getElementById('realEstateStatus').value,
+                document.getElementById('realEstateOwnerSurname').value,
+                document.getElementById('realEstateOwnerName').value,
+                document.getElementById('realEstateOwnerPatronymic').value,
+                document.getElementById('realEstateOwnerContactInfo').value
+            );
+            displayOutput(realEstate);
+        }
+
+        function createClient() {
+            client = new Client(
+                document.getElementById('clientSurname').value,
+                document.getElementById('clientName').value,
+                document.getElementById('clientPatronymic').value,
+                document.getElementById('clientPhone').value,
+                document.getElementById('clientEmail').value,
+                document.getElementById('clientAddress').value,
+                document.getElementById('clientNeeds').value,
+                document.getElementById('clientHistory').value,
+
+            );
+            displayOutput(client);
+        }
+        function toggleRealtorForm() {
+        var realtorForm = document.getElementById("realtorForm");
+        if (realtorForm.style.display === "none") {
+            realtorForm.style.display = "block";
+        } else {
+            realtorForm.style.display = "none";
+        }
+        
+        function toggleClientForm() {
+            var clientForm = document.getElementById("clientForm");
+            if (clientForm.style.display === "none") {
+                clientForm.style.display = "block";
+            } else {
+                clientForm.style.display = "none";
+            }
+        }
+    }
+        function createRealtor() {
+            realtor = new Realtor(
+                document.getElementById('realtorSurname').value,
+                document.getElementById('realtorName').value,
+                document.getElementById('realtorPatronymic').value,
+                document.getElementById('realtorPhone').value,
+                document.getElementById('realtorEmail').value,
+                document.getElementById('realtorSpecialization').value,
+                parseInt(document.getElementById('realtorExperience').value),
+                parseInt(document.getElementById('realtorDealsCount').value),
+                document.getElementById('realtorFeedback').value
+            );
+            displayOutput(realtor);
+        }
+
+        function displayOutput(obj) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerText = '';
+            if (obj instanceof RealEstate) {
+                obj.getInfo();
+            } else if (obj instanceof Client) {
+                obj.getInfo();
+            } else if (obj instanceof Realtor) {
+                obj.getInfo();
+            }
+        }
+
+        class RealEstate {
+            constructor(type, totalArea, livingArea, usefulArea, totalRooms, livingRooms, floor, totalFloors, street, buildingNumber, apartmentNumber, salePrice, rentPrice, description, status, ownerSurname, ownerName, ownerPatronymic, ownerContactInfo) {
+                this.type = type;
+                this.totalArea = totalArea;
+                this.livingArea = livingArea;
+                this.usefulArea = usefulArea;
+                this.totalRooms = totalRooms;
+                this.livingRooms = livingRooms;
+                this.floor = floor;
+                this.totalFloors = totalFloors;
+                this.street = street;
+                this.buildingNumber = buildingNumber;
+                this.apartmentNumber = apartmentNumber;
+                this.salePrice = salePrice;
+                this.rentPrice = rentPrice;
+                this.description = description;
+                this.status = status;
+                this.ownerSurname = ownerSurname;
+                this.ownerName = ownerName;
+                this.ownerPatronymic = ownerPatronymic;
+                this.ownerContactInfo = ownerContactInfo;
+            }
+
+            getInfo() {
+                console.log(`Real estate: ${this.type}, Address: ${this.street} ${this.buildingNumber}, Apartment: ${this.apartmentNumber}`);
+                console.log(`Total area: ${this.totalArea} sq.m, Living area: ${this.livingArea} sq.m, Useful area: ${this.usefulArea} sq.m`);
+                console.log(`Total rooms: ${this.totalRooms}, Living rooms: ${this.livingRooms}, Floor: ${this.floor} out of ${this.totalFloors}`);
+                console.log(`Sale price: ${this.salePrice} UAH, Rent price: ${this.rentPrice} UAH`);
+                console.log(`Description: ${this.description}, Status: ${this.status}`);
+                console.log(`Owner: ${this.ownerSurname} ${this.ownerName} ${this.ownerPatronymic}, Contact: ${this.ownerContactInfo}`);
+            }
+        }
+
+        class Client {
+            constructor(surname, name, patronymic, phone, email, address, needs, history) {
+                this.surname = surname;
+                this.name = name;
+                this.patronymic = patronymic;
+                this.phone = phone;
+                this.email = email;
+                this.address = address;
+                this.needs = needs;
+                this.history = history;
+            }
+
+            getInfo() {
+                console.log(`Client: ${this.surname} ${this.name} ${this.patronymic}`);
+                console.log(`Phone: ${this.phone}, Email: ${this.email}, Address: ${this.address}`);
+                console.log(`Needs: ${this.needs}, History: ${this.history}`);
+            }
+        }
+
+        class Realtor {
+            constructor(surname, name, patronymic, phone, email, specialization, experience, dealsCount, feedback) {
+                this.surname = surname;
+                this.name = name;
+                this.patronymic = patronymic;
+                this.phone = phone;
+                this.email = email;
+                this.specialization = specialization;
+                this.experience = experience;
+                this.dealsCount = dealsCount;
+                this.feedback = feedback;
+            }
+
+            getInfo() {
+                console.log(`Realtor: ${this.surname} ${this.name} ${this.patronymic}`);
+                console.log(`Phone: ${this.phone}, Email: ${this.email}`);
+                console.log(`Specialization: ${this.specialization}, Experience: ${this.experience} years, Number of deals: ${this.dealsCount}`);
+                console.log(`Feedback: ${this.feedback}`);
+            }
+        }
+    </script>
+</body>
 </html>
