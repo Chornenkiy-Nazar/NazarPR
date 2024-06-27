@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
     <link rel="stylesheet" href="PRC.css"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,6 +97,7 @@
 
         <div id="realtorForm" class="input-group">
             <h3>Realtor</h3>
+            <label>Upload Building Image (PNG only): <input type="file" id="buildingImage" accept=".png"></label>
             <label>Surname: <input type="text" id="realtorSurname"></label>
             <label>Name: <input type="text" id="realtorName"></label>
             <label>Patronymic: <input type="text" id="realtorPatronymic"></label>
@@ -150,19 +152,20 @@
                 document.getElementById('clientEmail').value,
                 document.getElementById('clientAddress').value,
                 document.getElementById('clientNeeds').value,
-                document.getElementById('clientHistory').value,
-
+                document.getElementById('clientHistory').value
             );
             displayOutput(client);
         }
+
         function toggleRealtorForm() {
-        var realtorForm = document.getElementById("realtorForm");
-        if (realtorForm.style.display === "none") {
-            realtorForm.style.display = "block";
-        } else {
-            realtorForm.style.display = "none";
+            var realtorForm = document.getElementById("realtorForm");
+            if (realtorForm.style.display === "none") {
+                realtorForm.style.display = "block";
+            } else {
+                realtorForm.style.display = "none";
+            }
         }
-        
+
         function toggleClientForm() {
             var clientForm = document.getElementById("clientForm");
             if (clientForm.style.display === "none") {
@@ -171,7 +174,7 @@
                 clientForm.style.display = "none";
             }
         }
-    }
+
         function createRealtor() {
             realtor = new Realtor(
                 document.getElementById('realtorSurname').value,
